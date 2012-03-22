@@ -2,6 +2,18 @@
 ;;  C-g g : goto-line
 ;;  C-x C-v : open a alternate file
 ;;  C-x C-w : save as another file
+;;  M-{ : goto the previous blank line
+;;  M-} : goto the next blank line
+;;  M-< : goto the beginning of the buffer
+;;  M-> : goto the end of the buffer
+
+;;; key bindings for elisp
+;;  C-x C-e : evaluate the last elisp expression and print to minibuf
+;;  C-j : same as C-x C-e but print the result to the buffer
+;;  C-M-a : previous expression
+;;  C-M-e : next expression
+;;  C-M-p : previous matching parenthesis
+;;  C-M-n ; next matching parenthesis
 
 ;;; Add the .emacs.d to the load-path
 (add-to-list 'load-path '"~/.emacs.d")
@@ -17,6 +29,9 @@
 (setq show-paren-delay 0  
       show-paren-style 'parenthesis)  
 (show-paren-mode 1)  
+;; highlight the expression between parenthesis
+(setq show-paren-style 'expression)
+
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
@@ -48,6 +63,9 @@
 (global-set-key (kbd "M-n") 'next-buffer)
 
 (global-linum-mode 1)
+
+;;; hippie-expand config
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;;; autopair mode
 (require 'autopair)
