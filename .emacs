@@ -56,16 +56,20 @@
       (move-beginning-of-line 0)
     (move-beginning-of-line nil)))
 
+;;; key bindings
+(global-set-key (kbd "C-S-o") 'other-window)
+
 (global-set-key (kbd "C-{") 'last-blank-block)
 (global-set-key (kbd "C-}") 'next-blank-block)
 
 (global-set-key (kbd "M-p") 'previous-buffer)
 (global-set-key (kbd "M-n") 'next-buffer)
 
+;; hippie-expand config
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 (global-linum-mode 1)
 
-;;; hippie-expand config
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;;; autopair mode
 (require 'autopair)
