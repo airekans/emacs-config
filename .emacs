@@ -10,6 +10,7 @@
 ;;  M-m : move to the first non-blank character on the current line.
 ;;  C-c < : shift region left
 ;;  C-c > : shift region right
+;;  M-<TAB>(C-M-i) : complete the word at point by local mode.
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
