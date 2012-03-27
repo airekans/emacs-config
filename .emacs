@@ -6,6 +6,10 @@
 ;;  M-} : goto the next blank line
 ;;  M-< : goto the beginning of the buffer
 ;;  M-> : goto the end of the buffer
+;;  M-^ : join the current line to the previous line(J in Vi).
+;;  M-m : move to the first non-blank character on the current line.
+;;  C-c < : shift region left
+;;  C-c > : shift region right
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
@@ -14,6 +18,9 @@
 ;;  C-M-e : next expression
 ;;  C-M-p : previous matching parenthesis
 ;;  C-M-n ; next matching parenthesis
+
+;;; Useful interactive functions
+;;  customize-group -> indent : set the indentation settings
 
 ;;; Add the .emacs.d to the load-path
 (add-to-list 'load-path '"~/.emacs.d")
