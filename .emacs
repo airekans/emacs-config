@@ -11,6 +11,10 @@
 ;;  C-c < : shift region left
 ;;  C-c > : shift region right
 ;;  M-<TAB>(C-M-i) : complete the word at point by local mode.
+;;  C-s : forward incremental search
+;;  C-s C-w : forward search the word under the cursor
+;;  M-. : jump to tag specified in TAGS
+;;  C-u M-. : jump to next tag
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
@@ -67,6 +71,7 @@
 ;;; key bindings
 (global-set-key (kbd "C-S-o") 'other-window)
 (global-set-key (kbd "C-x C-S-o") 'other-frame)
+(global-set-key (kbd "C-S-k") 'kill-buffer)
 
 (global-set-key (kbd "C-{") 'last-blank-block)
 (global-set-key (kbd "C-}") 'next-blank-block)
