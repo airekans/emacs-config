@@ -73,6 +73,10 @@
 (global-set-key (kbd "C-x C-S-o") 'other-frame)
 (global-set-key (kbd "C-S-k") 'kill-buffer)
 
+(global-set-key (kbd "C-.") '(lambda ()
+			       (interactive)
+			       (find-tag "" t)))
+
 (global-set-key (kbd "C-{") 'last-blank-block)
 (global-set-key (kbd "C-}") 'next-blank-block)
 
