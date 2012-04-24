@@ -53,6 +53,13 @@
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
+;;; Auto-complete 
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+(define-key ac-completing-map "\t" 'ac-complete)
+(define-key ac-completing-map "\r" nil)
+
 ;;; local function definitions and keymaps
 (defun last-blank-block ()
   (interactive)
@@ -85,6 +92,9 @@
 
 ;; hippie-expand config
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+;; auto-complete
+(global-set-key [(control tab)] 'auto-complete)
 
 (global-linum-mode 1)
 
