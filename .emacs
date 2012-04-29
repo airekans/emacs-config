@@ -79,6 +79,10 @@
 (global-set-key (kbd "C-S-o") 'other-window)
 (global-set-key (kbd "C-x C-S-o") 'other-frame)
 (global-set-key (kbd "C-S-k") 'kill-buffer)
+(global-set-key (kbd "C-S-j") (lambda ()
+			      (interactive)
+			      (move-end-of-line nil)
+			      (newline-and-indent)))
 
 (global-set-key (kbd "C-.") '(lambda ()
 			       (interactive)
