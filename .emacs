@@ -60,6 +60,16 @@
 (define-key ac-completing-map "\t" 'ac-complete)
 (define-key ac-completing-map "\r" nil)
 
+;;; Yasnippet
+(add-to-list 'load-path
+              "~/.emacs.d/yasnippet")
+(require 'yasnippet)
+(setq yas/trigger-key (kbd "C-c <kp-multiply>"))
+(yas/global-mode 1)
+;; auto-complete configuration for Yasnippet
+(setq-default ac-sources (cons 'ac-source-yasnippet
+		       ac-sources))
+
 ;;; local function definitions and keymaps
 (defun last-blank-block ()
   (interactive)

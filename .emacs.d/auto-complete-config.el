@@ -143,15 +143,15 @@
   (with-no-warnings
     (if (fboundp 'yas/get-snippet-tables)
         ;; >0.6.0
-        (apply 'append (mapcar 'ac-yasnippet-candidate-1 (yas/get-snippet-tables major-mode)))
+	(apply 'append (mapcar 'ac-yasnippet-candidate-1 (yas/get-snippet-tables)))
       (let ((table
-             (if (fboundp 'yas/snippet-table)
-                 ;; <0.6.0
-                 (yas/snippet-table major-mode)
-               ;; 0.6.0
-               (yas/current-snippet-table))))
-        (if table
-            (ac-yasnippet-candidate-1 table))))))
+	     (if (fboundp 'yas/snippet-table)
+		 ;; <0.6.0
+		 (yas/snippet-table major-mode)
+	       ;; 0.6.0
+	       (yas/current-snippet-table))))
+	(if table
+	    (ac-yasnippet-candidate-1 table))))))
 
 (ac-define-source yasnippet
   '((depends yasnippet)
