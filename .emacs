@@ -94,6 +94,10 @@
 			      (move-end-of-line nil)
 			      (newline-and-indent)))
 
+;; change font size
+(global-set-key '[C-mouse-4] 'text-scale-increase)
+(global-set-key '[C-mouse-5] 'text-scale-decrease)
+
 (global-set-key (kbd "C-.") '(lambda ()
 			       (interactive)
 			       (find-tag "" t)))
