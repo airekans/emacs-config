@@ -95,8 +95,15 @@
 			      (newline-and-indent)))
 
 ;; change font size
-(global-set-key '[C-mouse-4] 'text-scale-increase)
-(global-set-key '[C-mouse-5] 'text-scale-decrease)
+(if (eq system-type 'gnu/linux)
+    ; linux 
+    (progn
+      (global-set-key '[C-mouse-4] 'text-scale-increase)
+      (global-set-key '[C-mouse-5] 'text-scale-decrease))
+  ; windows 
+  (progn
+    (global-set-key '[C-wheel-up] 'text-scale-increase)
+    (global-set-key '[C-wheel-down] 'text-scale-decrease)))
 
 (global-set-key (kbd "C-.") '(lambda ()
 			       (interactive)
