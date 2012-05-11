@@ -15,6 +15,7 @@
 ;;  C-s C-w : forward search the word under the cursor
 ;;  M-. : jump to tag specified in TAGS
 ;;  C-u M-. : jump to next tag
+;;  C-x C-q : toggle read-only
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
