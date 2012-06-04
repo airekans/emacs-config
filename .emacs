@@ -97,6 +97,10 @@
 				(move-end-of-line nil)
 				(newline-and-indent)))
 
+(global-set-key '[f5] 'compile)
+(global-set-key '[f6] 'speedbar)
+
+
 ;; change font size
 (if (eq system-type 'gnu/linux)
     ; linux 
