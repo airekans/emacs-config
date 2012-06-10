@@ -16,6 +16,8 @@
 ;;  M-. : jump to tag specified in TAGS
 ;;  C-u M-. : jump to next tag
 ;;  C-x C-q : toggle read-only
+;;  C-M-d : goto the inner balanced expression
+;;  C-M-u : goto the outer balanced expression
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
@@ -58,8 +60,10 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
-(define-key ac-completing-map "\t" 'ac-complete)
-(define-key ac-completing-map "\r" nil)
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+(setq ac-auto-show-menu 0.2)
 
 ;;; Yasnippet
 (add-to-list 'load-path
@@ -70,6 +74,7 @@
 ;; auto-complete configuration for Yasnippet
 (setq-default ac-sources (cons 'ac-source-yasnippet
 		       ac-sources))
+(setq yas/prompt-functions '(yas/dropdown-prompt))
 
 ;;; local function definitions and keymaps
 (defun last-blank-block ()
@@ -99,7 +104,6 @@
 
 (global-set-key '[f5] 'compile)
 (global-set-key '[f6] 'speedbar)
-
 
 ;; change font size
 (if (eq system-type 'gnu/linux)
