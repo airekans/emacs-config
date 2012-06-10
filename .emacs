@@ -50,6 +50,18 @@
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
+;;; CEDET
+(load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
+;; Semantic
+(semantic-load-enable-minimum-features)
+(semantic-load-enable-code-helpers)
+(global-semantic-highlight-func-mode 1)
+(global-semantic-idle-local-symbol-highlight-mode 1)
+(if (fboundp #'which-func-mode)
+    (add-hook 'semantic-init-hook (lambda ()
+				    (which-func-mode 1))))
+(semantic-load-enable-semantic-debugging-helpers)
+
 ;;; Org-mode setup
 (setq load-path (cons "~/.emacs.d/org-7.8.03/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/org-7.8.03/contrib" load-path))
@@ -75,6 +87,11 @@
 (setq-default ac-sources (cons 'ac-source-yasnippet
 		       ac-sources))
 (setq yas/prompt-functions '(yas/dropdown-prompt))
+;; Auto-complete for semantic
+(add-hook 'c-mode-common-hook (lambda ()
+				(setq ac-sources
+				      (cons 'ac-source-semantic
+					    ac-sources))))
 
 ;;; Tabbar mode
 (require 'tabbar)
