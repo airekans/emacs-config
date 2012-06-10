@@ -76,6 +76,11 @@
 		       ac-sources))
 (setq yas/prompt-functions '(yas/dropdown-prompt))
 
+;;; Tabbar mode
+(require 'tabbar)
+(tabbar-mode)
+(tabbar-mwheel-mode)
+
 ;;; local function definitions and keymaps
 (defun last-blank-block ()
   (interactive)
