@@ -62,8 +62,13 @@
 				    (which-func-mode 1))))
 (semantic-load-enable-semantic-debugging-helpers)
 ;; add user defined include dirs for C++
+(defconst cedet-linux-system-include-dirs
+  (list "/usr/local/include"))
 (defconst cedet-user-include-dirs
   (list ".." "../include" "../.." "include"))
+(mapc (lambda (dir)
+	(semantic-add-system-include dir 'c++-mode))
+      cedet-linux-system-include-dirs)
 (mapc (lambda (dir)
 	(semantic-add-system-include dir 'c++-mode))
       cedet-user-include-dirs)
@@ -78,6 +83,7 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+(define-key ac-completing-map [return] 'ac-complete)
 (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
