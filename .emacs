@@ -41,11 +41,9 @@
 ;;; Always do syntax highlighting  
 (global-font-lock-mode 1)  
 ;;; Also highlight parens  
+(show-paren-mode 1)
 (setq show-paren-delay 0  
-      show-paren-style 'parenthesis)  
-(show-paren-mode 1)  
-;; highlight the expression between parenthesis
-(setq show-paren-style 'expression)
+      show-paren-style 'expression) ; highlight the expression between parenthesis
 
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
