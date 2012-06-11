@@ -104,6 +104,9 @@
 (tabbar-mode)
 (tabbar-mwheel-mode)
 
+;;; Protobuf mode
+(require 'protobuf-mode)
+
 ;;; local function definitions and keymaps
 (defun last-blank-block ()
   (interactive)
