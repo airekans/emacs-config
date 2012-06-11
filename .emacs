@@ -61,6 +61,12 @@
     (add-hook 'semantic-init-hook (lambda ()
 				    (which-func-mode 1))))
 (semantic-load-enable-semantic-debugging-helpers)
+;; add user defined include dirs for C++
+(defconst cedet-user-include-dirs
+  (list ".." "../include" "../.." "include"))
+(mapc (lambda (dir)
+	(semantic-add-system-include dir 'c++-mode))
+      cedet-user-include-dirs)
 
 ;;; Org-mode setup
 (setq load-path (cons "~/.emacs.d/org-7.8.03/lisp" load-path))
