@@ -48,6 +48,9 @@
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
+;;; cc-mode
+(require 'cc-mode)
+
 ;;; CEDET
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 ;; Semantic
@@ -60,6 +63,7 @@
 				    (which-func-mode 1))))
 (semantic-load-enable-semantic-debugging-helpers)
 ;; add user defined include dirs for C++
+(require 'semantic-c nil 'noerror)
 (defconst cedet-linux-system-include-dirs
   (list "/usr/local/include"))
 (defconst cedet-user-include-dirs
@@ -160,6 +164,11 @@
 
 (global-set-key (kbd "M-p") 'previous-buffer)
 (global-set-key (kbd "M-n") 'next-buffer)
+
+;; Semantic
+; "C-]" is originally bound to abort-recursive-edit
+(define-key c-mode-base-map (kbd "C-]") 'semantic-ia-fast-jump)
+(define-key c-mode-base-map (kbd "C-t") 'semantic-mrub-switch-tags)
 
 ;; hippie-expand config
 (global-set-key (kbd "M-/") 'hippie-expand)
