@@ -168,6 +168,7 @@
 ;; Semantic
 ; "C-]" is originally bound to abort-recursive-edit
 (define-key c-mode-base-map (kbd "C-]") 'semantic-ia-fast-jump)
+; "C-t" is originally bound to transpose-chars
 (define-key c-mode-base-map (kbd "C-t") 'semantic-mrub-switch-tags)
 
 ;; hippie-expand config
