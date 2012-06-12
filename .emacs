@@ -51,6 +51,9 @@
 ;;; cc-mode
 (require 'cc-mode)
 
+;;; Column number mode
+(column-number-mode)
+
 ;;; CEDET
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 ;; Semantic
