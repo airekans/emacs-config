@@ -35,7 +35,6 @@
 ;;; Add the .emacs.d to the load-path
 (add-to-list 'load-path '"~/.emacs.d")
 
-
 ;;; set the color theme
 (require 'color-theme)
 (color-theme-initialize)
@@ -123,6 +122,32 @@
 ;;; Protobuf mode
 (require 'protobuf-mode)
 
+;;; Pymacs
+(setenv "PYTHONPATH" (concat (getenv "HOME")
+			     "/.emacs.d/pymacs:"
+			     (getenv "PYTHONPATH")))
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
+
+;;; ropemacs
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
+
+;;; autopair mode
+(require 'autopair)
+(autopair-global-mode)
+
+;;; Python mode
+;(require 'python-mode)
+;(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+
+;;; IPython mode
+;(require 'ipython)
+
 ;;; local function definitions and keymaps
 (defun last-blank-block ()
   (interactive)
@@ -188,11 +213,6 @@
 (global-set-key [(control tab)] 'auto-complete)
 
 (global-linum-mode 1)
-
-
-;;; autopair mode
-(require 'autopair)
-(autopair-global-mode)
 
 ;;; pdb setup, note the python version
 ;; change the following path to the pdb path on your system
