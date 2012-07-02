@@ -18,6 +18,8 @@
 ;;  C-x C-q : toggle read-only
 ;;  C-M-d : goto the inner balanced expression
 ;;  C-M-u : goto the outer balanced expression
+;;  C-\ : toggle input method
+;;  M-\ : join two words. useful to deleting white space.
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
@@ -32,6 +34,7 @@
 
 ;;; Add the .emacs.d to the load-path
 (add-to-list 'load-path '"~/.emacs.d")
+
 
 ;;; set the color theme
 (require 'color-theme)
@@ -50,6 +53,8 @@
 
 ;;; cc-mode
 (require 'cc-mode)
+(add-hook 'c-mode-common-hook (lambda ()
+				(c-toggle-hungry-state 1)))
 
 ;;; Column number mode
 (column-number-mode)
@@ -173,6 +178,7 @@
 (define-key c-mode-base-map (kbd "C-]") 'semantic-ia-fast-jump)
 ; "C-t" is originally bound to transpose-chars
 (define-key c-mode-base-map (kbd "C-t") 'semantic-mrub-switch-tags)
+(define-key c-mode-base-map (kbd "C-=") 'semantic-analyze-proto-impl-toggle)
 (define-key c-mode-base-map (kbd "C-M-m") 'eassist-list-methods)
 
 ;; hippie-expand config
@@ -202,3 +208,10 @@
 			    ;;  Linux
 			    ;; (file-name-nondirectory buffer-file-name)
 	 		    (buffer-file-name)))))
+
+
+;;; Debug options
+;; (setq max-specpdl-size 5)  ; default is 1000, reduce the backtrace level
+;; (setq debug-on-error t)
+;; (add-hook 'after-init-hook
+;;          (lambda () (progn (setq debug-on-error t))))
