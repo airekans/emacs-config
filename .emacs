@@ -173,6 +173,7 @@
 (define-key c-mode-base-map (kbd "C-]") 'semantic-ia-fast-jump)
 ; "C-t" is originally bound to transpose-chars
 (define-key c-mode-base-map (kbd "C-t") 'semantic-mrub-switch-tags)
+(define-key c-mode-base-map (kbd "C-M-m") 'eassist-list-methods)
 
 ;; hippie-expand config
 (global-set-key (kbd "M-/") 'hippie-expand)
