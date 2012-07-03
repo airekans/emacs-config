@@ -117,7 +117,7 @@
 ;;; Tabbar mode
 (require 'tabbar)
 (tabbar-mode)
-(tabbar-mwheel-mode)
+(tabbar-mwheel-mode 1)
 
 ;;; Protobuf mode
 (require 'protobuf-mode)
