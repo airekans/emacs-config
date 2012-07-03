@@ -134,6 +134,8 @@
 (autoload 'pymacs-autoload "pymacs")
 
 ;;; ropemacs
+;; Before running these, ensure that you have properly installed
+;; rope, ropemacs
 (pymacs-load "ropemacs" "rope-")
 (setq ropemacs-enable-autoimport t)
 
