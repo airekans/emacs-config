@@ -65,6 +65,7 @@
 (semantic-load-enable-code-helpers)
 (global-semantic-highlight-func-mode 1)
 (global-semantic-idle-local-symbol-highlight-mode 1)
+(global-semantic-decoration-mode 1)
 (if (fboundp #'which-func-mode)
     (add-hook 'semantic-init-hook (lambda ()
 				    (which-func-mode 1))))
@@ -142,6 +143,9 @@
 ;;; autopair mode
 (require 'autopair)
 (autopair-global-mode)
+
+;;; New python.el
+
 
 ;;; Python mode
 ;(require 'python-mode)
