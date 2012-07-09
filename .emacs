@@ -47,6 +47,12 @@
 (setq show-paren-delay 0  
       show-paren-style 'expression) ; highlight the expression between parenthesis
 
+;;; Linum mode
+(global-linum-mode 1)
+;;; Column number mode
+(column-number-mode)
+
+
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
@@ -54,9 +60,6 @@
 (require 'cc-mode)
 (add-hook 'c-mode-common-hook (lambda ()
 				(c-toggle-hungry-state 1)))
-
-;;; Column number mode
-(column-number-mode)
 
 ;;; CEDET
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
@@ -210,15 +213,13 @@
 ; "C-t" is originally bound to transpose-chars
 (define-key c-mode-base-map (kbd "C-t") 'semantic-mrub-switch-tags)
 (define-key c-mode-base-map (kbd "C-=") 'semantic-analyze-proto-impl-toggle)
-(define-key c-mode-base-map (kbd "C-M-m") 'eassist-list-methods)
+(global-set-key (kbd "C-M-m") 'eassist-list-methods)
 
 ;; hippie-expand config
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; auto-complete
 (global-set-key [(control tab)] 'auto-complete)
-
-(global-linum-mode 1)
 
 ;;; pdb setup, note the python version
 ;; change the following path to the pdb path on your system
