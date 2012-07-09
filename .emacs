@@ -20,6 +20,7 @@
 ;;  C-M-u : goto the outer balanced expression
 ;;  C-\ : toggle input method
 ;;  M-\ : join two words. useful to deleting white space.
+;;  M-^ : join two lines. Same as 'J' in vim.
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
