@@ -184,6 +184,11 @@
 				(move-end-of-line nil)
 				(newline-and-indent)))
 
+;; C-M-\ was bound to indent-region
+(global-set-key (kbd "C-M-\\") 'comment-region)
+;; C-M-/ was bound to dabbrev-completion
+(global-set-key (kbd "C-M-/") 'uncomment-region)
+
 (global-set-key '[f5] 'compile)
 (global-set-key '[f6] 'speedbar)
 
