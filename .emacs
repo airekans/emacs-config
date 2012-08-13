@@ -64,6 +64,16 @@
 (add-hook 'c-mode-common-hook (lambda ()
 				(c-toggle-hungry-state 1)))
 
+;; c/c++-mode indent style
+(add-hook 'c-mode-hook
+          '(lambda ()
+             (c-set-style "k&r")))
+(add-hook 'c++-mode-hook
+          '(lambda ()
+             (c-set-style "stroustrup")))
+ 
+(setq c-basic-offset 4)
+
 ;;; CEDET
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 ;; Semantic
