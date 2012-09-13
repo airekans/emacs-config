@@ -55,6 +55,8 @@
 ;;; Column number mode
 (column-number-mode)
 
+;;; ido-mode for buffer/file switching
+(ido-mode t)
 
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
