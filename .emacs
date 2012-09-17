@@ -76,6 +76,18 @@
  
 (setq c-basic-offset 4)
 
+;; font-lock for cc-mode
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(("\\<\\(FIXME\\):" 1
+				       font-lock-warning-face t)
+				      ("\\<\\(\\sw+\\)\\s-*\\(\\.\\|->\\)" 1
+				       font-lock-variable-name-face t)
+				      ("\\<\\(m_\\|d_\\)\\sw+" . font-lock-variable-name-face))
+				    'append))
+	  'append)
+
 ;;; CEDET
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 ;; Semantic
