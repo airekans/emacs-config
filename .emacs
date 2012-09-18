@@ -82,9 +82,14 @@
 	    (font-lock-add-keywords nil
 				    '(("\\<\\(FIXME\\):" 1
 				       font-lock-warning-face t)
+				      ;("#include\\s-+\\(<.*>\\)" 1
+				       ;font-lock-string-face t)
+				      ; ("\\<sizeof\\>" . font-lock-keyword-face)
 				      ("\\<\\(\\sw+\\)\\s-*\\(\\.\\|->\\)" 1
-				       font-lock-variable-name-face t)
-				      ("\\<\\(m_\\|d_\\)\\sw+" . font-lock-variable-name-face))
+				       font-lock-variable-name-face keep)
+				      ("\\<\\(m_\\|d_\\)\\sw+" . font-lock-variable-name-face)
+				      ("\\<\\(\\sw+\\)\\s-*(" 1
+				       font-lock-function-name-face append))
 				    'append))
 	  'append)
 
