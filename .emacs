@@ -61,6 +61,17 @@
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
+;; font-lock for scheme mode
+(add-hook 'scheme-mode-hook
+          (lambda ()
+            (font-lock-add-keywords nil
+                                    '(("(\\(\\<\\sw+\\?\\)" 1
+                                       font-lock-function-name-face append)
+                                      ("(\\(\\<\\sw+!\\)" 1
+                                       font-lock-warning-face append))
+                                    'append))
+          'append)
+
 ;;; cc-mode
 (require 'cc-mode)
 (add-hook 'c-mode-common-hook (lambda ()
