@@ -59,6 +59,8 @@
 
 ;;; ido-mode for buffer/file switching
 (ido-mode t)
+(setq ido-enable-flex-matching t)
+(ido-everywhere)
 
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
