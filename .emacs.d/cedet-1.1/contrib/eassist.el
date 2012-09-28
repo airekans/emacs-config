@@ -103,6 +103,7 @@
 ;;; Code:
 
 (require 'semantic)
+(require 'ido)
 
 ;; ================================== My STRING utils ========================
 (defun eassist-string-without-last (string n)
@@ -150,7 +151,13 @@ for example *.hpp <--> *.cpp."
  		       (switch-to-buffer-other-frame b)
  		     (switch-to-buffer b))))
            (loop for c in (mapcar (lambda (count-ext) (concat base-path count-ext)) count-ext)
-                 when (file-exists-p c) return (find-file c)))
+                 when (file-exists-p c) return (find-file c))
+	   (let ((dir (ido-read-file-name "Counterpair dir: ")))
+	     (loop for c in (mapcar 
+			     (lambda (ext)
+			       (concat dir "/" base-name ext))
+			     count-ext)
+		   when (file-exists-p c) return (find-file c))))
         (message "There is no corresponding pair (header or body) file.")))
      (t
       (message "It is not a header or body file! See eassist-header-switches variable.")))))
