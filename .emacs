@@ -52,6 +52,9 @@
 (setq show-paren-delay 0  
       show-paren-style 'expression) ; highlight the expression between parenthesis
 
+;;; Set default font
+;(set-face-attribute 'default nil :font "Source Code Pro" :height 140)
+
 ;;; Linum mode
 (global-linum-mode 1)
 ;;; Column number mode
