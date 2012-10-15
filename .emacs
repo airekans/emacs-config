@@ -220,6 +220,40 @@
       (move-beginning-of-line 0)
     (move-beginning-of-line nil)))
 
+(defun elisp-push-point-marker ()
+  "Push point to find-tag-marker-ring. Use M-* to jump back."
+  (require 'etags)
+  (cond ((featurep 'xemacs)
+         (push-tag-mark))
+        (t (ring-insert find-tag-marker-ring (point-marker)))))
+
+(defun elisp-find-definition (name)
+  "Jump to the definition of the function (or variable) at point."
+  (interactive (list (thing-at-point 'symbol)))
+  (cond (name
+         (let ((symbol (intern-soft name))
+               (search (lambda (fun sym)
+                         (let* ((r (save-excursion (funcall fun sym)))
+                                (buffer (car r))
+                                (point (cdr r)))
+                           (cond ((not point)
+                                  (error "Found no definition for %s in %s"
+                                         name buffer))
+                                 (t
+                                  (switch-to-buffer buffer)
+                                  (goto-char point)
+                                  (recenter 1)))))))
+           (cond ((fboundp symbol)
+                  (elisp-push-point-marker)
+                  (funcall search 'find-function-noselect symbol))
+                 ((boundp symbol)
+                  (elisp-push-point-marker)
+                  (funcall search 'find-variable-noselect symbol))
+                 (t
+                  (message "Symbol not bound: %S" symbol)))))
+  (t (message "No symbol at point"))))
+
+
 ;;; key bindings
 (global-set-key (kbd "C-S-o") 'other-window)
 (global-set-key (kbd "C-x C-S-o") 'other-frame)
@@ -230,6 +264,8 @@
 				(interactive)
 				(move-end-of-line nil)
 				(newline-and-indent)))
+
+(define-key emacs-lisp-mode-map (kbd "C-]") 'elisp-find-definition)
 
 ;; C-M-\ was bound to indent-region
 (global-set-key (kbd "C-M-\\") 'comment-region)
