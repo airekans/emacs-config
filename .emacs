@@ -36,6 +36,7 @@
 ;;  customize-group -> indent : set the indentation settings
 ;;  occur -> find the lines matching the regex
 ;;  find-dired -> use "find" cmd to find files and show the result in dired mode
+;;  apropos -> find the matching items by using regex.
 
 ;;; Add the .emacs.d to the load-path
 (add-to-list 'load-path '"~/.emacs.d")
