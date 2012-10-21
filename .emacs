@@ -202,6 +202,12 @@
 (require 'autopair)
 (autopair-global-mode)
 
+;;; Ibus mode
+;;; before enable this mode, ensure python-xlib has been installed
+(require 'ibus)
+(add-hook 'after-init-hook 'ibus-mode-on)
+
+
 ;;; New python.el
 
 
