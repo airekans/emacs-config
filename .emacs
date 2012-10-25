@@ -202,6 +202,11 @@
 (require 'autopair)
 (autopair-global-mode)
 
+;;; paredit mode (for lisp language)
+(autoload 'paredit-mode "paredit"
+      "Minor mode for pseudo-structurally editing Lisp code." t)
+(add-hook 'scheme-mode-hook (lambda () (paredit-mode +1)))
+
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
 (require 'ibus)
@@ -436,8 +441,8 @@ instead."
 (global-set-key (kbd "C-{") 'last-blank-block)
 (global-set-key (kbd "C-}") 'next-blank-block)
 
-(global-set-key (kbd "M-p") 'previous-buffer)
-(global-set-key (kbd "M-n") 'next-buffer)
+;; (global-set-key (kbd "M-p") 'previous-buffer)
+;; (global-set-key (kbd "M-n") 'next-buffer)
 
 ;; Semantic
 ; "C-]" is originally bound to abort-recursive-edit
