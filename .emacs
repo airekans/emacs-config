@@ -276,7 +276,11 @@
   (elisp-goto-definition (symbol-at-point)))
 
 (defun elisp-goto-definition-interactively (name)
-  (interactive "aGoto function: ")
+;  (interactive "aGoto function: ")
+  (interactive (list
+		(ido-completing-read
+		 "Goto function: "
+		 (all-completions "" obarray 'fboundp))))
   (elisp-goto-definition name))
 
 
