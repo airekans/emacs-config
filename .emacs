@@ -341,6 +341,18 @@
      "M-x "
      (all-completions "" obarray 'commandp)))))
 
+(defun occur-at-point ()
+  "Find occurences of the symbol at point"
+  (interactive)
+  (let* ((s (symbol-at-point)))
+    (if (null s)
+	(message "No symbol at point!")
+      (let ((name (symbol-name s)))
+	(if (not (null hi-lock-interactive-patterns))
+	    (unhighlight-regexp (car (car hi-lock-interactive-patterns))))
+	(highlight-regexp name)
+	(occur name)))))
+
 ;;; Smart jumping similar to '*'/'#' in vi
 (defvar smart-use-extended-syntax nil
   "If t the smart symbol functionality will consider extended
@@ -435,6 +447,7 @@ instead."
 ; the original "\M-x" binding is execute-extended-command
 (global-set-key "\M-x" 'ido-execute-command)
 (global-set-key "\M-X" 'execute-extended-command) ; binding it in case emgergent use
+(global-set-key "\C-c*" 'occur-at-point)
 
 ;; smart jumping bindings
 (global-set-key (kbd "M-n") 'smart-symbol-go-forward)
