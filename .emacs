@@ -344,6 +344,7 @@
 (defun occur-at-point ()
   "Find occurences of the symbol at point"
   (interactive)
+  (require 'hi-lock)
   (let* ((s (symbol-at-point)))
     (if (null s)
 	(message "No symbol at point!")
