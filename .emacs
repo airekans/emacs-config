@@ -279,6 +279,8 @@
   (interactive "aGoto function: ")
   (elisp-goto-definition name))
 
+
+;;; Additional features using ido
 (defun ido-goto-symbol (&optional symbol-list)
   "Refresh imenu and jump to a place in the buffer using Ido."
   (interactive)
@@ -326,6 +328,14 @@
 		    (string= (car imenu--rescan-item) name))
 	  (add-to-list 'symbol-names name)
 	  (add-to-list 'name-and-pos (cons name position))))))))
+
+(defun ido-execute-command ()
+  (interactive)
+  (call-interactively
+   (intern
+    (ido-completing-read
+     "M-x "
+     (all-completions "" obarray 'commandp)))))
 
 ;;; Smart jumping similar to '*'/'#' in vi
 (defvar smart-use-extended-syntax nil
@@ -418,6 +428,9 @@ instead."
 
 (define-key emacs-lisp-mode-map (kbd "C-]") 'elisp-goto-definition-at-point)
 (global-set-key "\C-ci" 'ido-goto-symbol) ; or any key you see fit
+; the original "\M-x" binding is execute-extended-command
+(global-set-key "\M-x" 'ido-execute-command)
+(global-set-key "\M-X" 'execute-extended-command) ; binding it in case emgergent use
 
 ;; smart jumping bindings
 (global-set-key (kbd "M-n") 'smart-symbol-go-forward)
