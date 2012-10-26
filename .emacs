@@ -245,13 +245,8 @@
          (push-tag-mark))
         (t (ring-insert find-tag-marker-ring (point-marker)))))
 
-(defun elisp-find-definition-at-point ()
-  "Jump to the definition of the function (or variable) at point."
-  (interactive)
-  (elisp-find-definition (symbol-at-point)))
-
-(defun elisp-find-definition (name)
-  "Jump to the definition of the function having the given name"
+(defun elisp-goto-definition (name)
+  "Go to the definition of the function having the given name"
   (cond (name
          (let ((symbol (intern-soft name))
                (search (lambda (fun sym)
@@ -274,6 +269,15 @@
                  (t
                   (message "Symbol not bound: %S" symbol)))))
   (t (message "No symbol at point"))))
+
+(defun elisp-goto-definition-at-point ()
+  "Jump to the definition of the function (or variable) at point."
+  (interactive)
+  (elisp-goto-definition (symbol-at-point)))
+
+(defun elisp-goto-definition-interactively (name)
+  (interactive "aGoto function: ")
+  (elisp-goto-definition name))
 
 (defun ido-goto-symbol (&optional symbol-list)
   "Refresh imenu and jump to a place in the buffer using Ido."
@@ -412,7 +416,7 @@ instead."
 				(move-end-of-line nil)
 				(newline-and-indent)))
 
-(define-key emacs-lisp-mode-map (kbd "C-]") 'elisp-find-definition)
+(define-key emacs-lisp-mode-map (kbd "C-]") 'elisp-goto-definition-at-point)
 (global-set-key "\C-ci" 'ido-goto-symbol) ; or any key you see fit
 
 ;; smart jumping bindings
