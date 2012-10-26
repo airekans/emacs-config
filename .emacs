@@ -245,9 +245,13 @@
          (push-tag-mark))
         (t (ring-insert find-tag-marker-ring (point-marker)))))
 
-(defun elisp-find-definition (name)
+(defun elisp-find-definition-at-point ()
   "Jump to the definition of the function (or variable) at point."
-  (interactive (list (thing-at-point 'symbol)))
+  (interactive)
+  (elisp-find-definition (symbol-at-point)))
+
+(defun elisp-find-definition (name)
+  "Jump to the definition of the function having the given name"
   (cond (name
          (let ((symbol (intern-soft name))
                (search (lambda (fun sym)
