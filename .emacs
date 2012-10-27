@@ -67,6 +67,8 @@
 (ido-everywhere)
 (setq ido-use-filename-at-point 'guess)
 
+;;; Scheme
+(require 'xscheme) ;; I use mit-scheme, so the xscheme package.
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
@@ -205,7 +207,9 @@
 ;;; paredit mode (for lisp language)
 (autoload 'paredit-mode "paredit"
       "Minor mode for pseudo-structurally editing Lisp code." t)
-(add-hook 'scheme-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'scheme-mode-hook (lambda ()
+			      (paredit-mode +1)
+			      (semantic-show-unmatched-syntax-mode -1)))
 
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
