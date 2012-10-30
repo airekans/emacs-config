@@ -453,6 +453,7 @@ instead."
 (global-set-key "\M-x" 'ido-execute-command)
 (global-set-key "\M-X" 'execute-extended-command) ; binding it in case emgergent use
 (global-set-key "\C-c*" 'occur-at-point)
+(global-set-key "\C-cm" 'set-mark-command)
 
 ;; smart jumping bindings
 (global-set-key (kbd "M-n") 'smart-symbol-go-forward)
