@@ -66,6 +66,8 @@
 (setq ido-enable-flex-matching t)
 (ido-everywhere)
 (setq ido-use-filename-at-point 'guess)
+(setq ido-max-directory-size nil) ; disable the maximum directory settings.
+
 
 ;;; Scheme
 (require 'xscheme) ;; I use mit-scheme, so the xscheme package.
