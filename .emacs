@@ -213,6 +213,10 @@
 			      (paredit-mode +1)
 			      (semantic-show-unmatched-syntax-mode -1)))
 
+;;; find-file-in-project
+(if (eq system-type 'gnu/linux)
+    (require 'find-file-in-project))
+
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
 (require 'ibus)
@@ -456,6 +460,8 @@ instead."
 (global-set-key "\M-X" 'execute-extended-command) ; binding it in case emgergent use
 (global-set-key "\C-c*" 'occur-at-point)
 (global-set-key "\C-cm" 'set-mark-command)
+(if (eq system-type 'gnu/linux)
+    (global-set-key (kbd "C-x C-S-f") 'find-file-in-project))
 
 ;; smart jumping bindings
 (global-set-key (kbd "M-n") 'smart-symbol-go-forward)
