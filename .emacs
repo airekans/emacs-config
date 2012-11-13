@@ -503,6 +503,7 @@ instead."
 (define-key c-mode-base-map (kbd "C-t") 'semantic-mrub-switch-tags)
 (define-key c-mode-base-map (kbd "C-=") 'semantic-analyze-proto-impl-toggle)
 (global-set-key (kbd "C-M-m") 'eassist-list-methods)
+(global-set-key (kbd "M-o") 'eassist-switch-h-cpp)
 
 ;; hippie-expand config
 (global-set-key (kbd "M-/") 'hippie-expand)
