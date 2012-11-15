@@ -55,6 +55,9 @@
          ((file-exists-p f) f)
          (t (plv-find-project-file parent mode-name)))))
 
+;;; When you want to load the project file before loading this module,
+;;; swap the hack-local-variables and project-local-variables in the
+;;; following line.
 (defadvice hack-local-variables (before project-local-variables activate)
   (let* ((full-name (symbol-name major-mode))
          (mode-name (if (string-match "\\(.*\\)-mode$" full-name)
