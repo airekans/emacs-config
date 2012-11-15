@@ -219,6 +219,11 @@
 (if (eq system-type 'gnu/linux)
     (require 'find-file-in-project))
 
+;;; Customization for project-local-variables
+(require 'project-local-variables)
+(defadvice plv-find-project-file (after load-file-after-found activate)
+  (when ad-return-value (load ad-return-value)))
+
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
 (require 'ibus)
