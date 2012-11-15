@@ -69,7 +69,19 @@
 (ido-everywhere)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-max-directory-size nil) ; disable the maximum directory settings.
+;; integrate recentf with ido
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-saved-items 300)
 
+(defun ido-choose-from-recentf ()
+  "Use ido to select a recently opened file from the `recentf-list'"
+  (interactive)
+  (find-file (ido-completing-read "Open file: " recentf-list nil t)))
+
+
+;;; global-visual-line-mode, which splits a long logical line into several lines
+(global-visual-line-mode 1)
 
 ;;; Scheme
 (require 'xscheme) ;; I use mit-scheme, so the xscheme package.
@@ -469,10 +481,15 @@ instead."
 (global-set-key "\C-cm" 'set-mark-command)
 (if (eq system-type 'gnu/linux)
     (global-set-key (kbd "C-x C-S-f") 'find-file-in-project))
+(global-set-key (kbd "C-x C-r") 'ido-choose-from-recentf)
 
 ;; smart jumping bindings
 (global-set-key (kbd "M-n") 'smart-symbol-go-forward)
 (global-set-key (kbd "M-p") 'smart-symbol-go-backward)
+
+;; Lisp Interactive Mode bindings
+(define-key lisp-interaction-mode-map (kbd "C-j") 'newline-and-indent)
+(define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp)
 
 ;; C-M-\ was bound to indent-region
 (global-set-key (kbd "C-M-\\") 'comment-region)
