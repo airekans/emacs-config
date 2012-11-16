@@ -23,6 +23,8 @@
 ;;  M-^ : join two lines. Same as 'J' in vim.
 ;;  M-! : run sync shell command in minibuffer
 ;;  M-| : run the shell command and pass the region as the stdin to the command.
+;;  C-x <TAB> : indent-rigidly, which shift the region right with
+;;              given prefix argument. 
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
