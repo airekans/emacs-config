@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: (define var val
+# key: def
+# --
+(define ${1:var} $0)

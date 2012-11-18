@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: (define (name args) (body))
+# key: def
+# --
+(define (${1:name-and-args})
+  ($0))
