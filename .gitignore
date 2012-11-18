@@ -3,3 +3,4 @@ auto-save-list/*
 *.pyc
 *.dat
 #*#
+.emacs-project
