@@ -55,6 +55,11 @@
 (setq show-paren-delay 0  
       show-paren-style 'expression) ; highlight the expression between parenthesis
 
+;;; Set scroll-margin so that when moving toward top or bottom,
+;;; display will scroll automatically.
+(setq scroll-margin 5
+      scroll-conservatively 10000)
+
 ;;; Set default font
 ;; To download "Source Code Pro", you can goto http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
 ;; Then you put all .ttf files under ~/.fonts and run the following commands in ~/.fonts:
@@ -462,6 +467,15 @@ instead."
             word)
         (error "No symbol found")))))
 
+;;; simulate vi's "%" key
+;;; copy from yinwang's emacs extensions.
+(defun vi-match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
+
 
 ;;; key bindings
 (global-set-key (kbd "C-S-o") 'other-window)
@@ -492,6 +506,9 @@ instead."
 ;; Lisp Interactive Mode bindings
 (define-key lisp-interaction-mode-map (kbd "C-j") 'newline-and-indent)
 (define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp)
+
+;; simulate vi's "%" key
+(global-set-key "%" 'vi-match-paren)
 
 ;; C-M-\ was bound to indent-region
 (global-set-key (kbd "C-M-\\") 'comment-region)
