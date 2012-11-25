@@ -95,6 +95,12 @@
 ;;; This is the binary name of my scheme implementation  
 ; (setq scheme-program-name "~/bin/scheme")
 
+;;; SLIME
+(add-to-list 'load-path "~/.emacs.d/slime")  ; SLIME directory
+(setq inferior-lisp-program "/usr/local/bin/sbcl") ; Lisp system
+(require 'slime)
+(slime-setup)
+
 ;; font-lock for scheme mode
 (add-hook 'scheme-mode-hook
           (lambda ()
