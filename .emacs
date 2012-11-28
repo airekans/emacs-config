@@ -22,6 +22,7 @@
 ;;  M-\ : join two words. useful to deleting white space.
 ;;  M-^ : join two lines. Same as 'J' in vim.
 ;;  M-! : run sync shell command in minibuffer
+;;  M-& : Async shell command, output to another buffer.
 ;;  M-| : run the shell command and pass the region as the stdin to the command.
 ;;  C-x <TAB> : indent-rigidly, which shift the region right with
 ;;              given prefix argument. 
