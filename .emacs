@@ -243,12 +243,29 @@
 
 ;;; find-file-in-project
 (if (eq system-type 'gnu/linux)
-    (require 'find-file-in-project))
+    (progn (require 'find-file-in-project)
+	   (defadvice ffip-project-files (around ffip-files-around-ad activate)
+	     (let* ((project-root (or ffip-project-root (ffip-project-root)))
+		    (cache-file (expand-file-name ".ffip-cache" project-root)))
+	       (if (file-exists-p cache-file)
+		   (setq ad-return-value (car (read-from-string
+					       (shell-command-to-string
+						(concat "cat " cache-file)))))
+		 ad-do-it
+		 (when ad-return-value
+		   (with-temp-file cache-file
+		     (prin1 ad-return-value (current-buffer)))))))))
 
 ;;; Customization for project-local-variables
 (require 'project-local-variables)
-(defadvice plv-find-project-file (after load-file-after-found activate)
-  (when ad-return-value (load ad-return-value)))
+(defadvice plv-find-project-file (around plv-load-file-around-ad activate)
+  (if (boundp 'plv-local-project-file-path)
+      (setq ad-return-value plv-local-project-file-path)
+    ad-do-it
+    (when ad-return-value
+      (progn (set (make-local-variable 'plv-local-project-file-path)
+		  ad-return-value)
+	     (load ad-return-value)))))
 
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
