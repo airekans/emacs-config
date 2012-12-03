@@ -253,8 +253,9 @@
 						(concat "cat " cache-file)))))
 		 ad-do-it
 		 (when ad-return-value
-		   (with-temp-file cache-file
-		     (prin1 ad-return-value (current-buffer)))))))))
+		   (ignore-errors
+		     (with-temp-file cache-file
+		       (prin1 ad-return-value (current-buffer))))))))))
 
 ;;; Customization for project-local-variables
 (require 'project-local-variables)
