@@ -513,6 +513,10 @@ instead."
 				(move-end-of-line nil)
 				(newline-and-indent)))
 
+;; swap the key bindins for "C-x C-c" and "C-x C-q"
+(global-set-key (kbd "C-x C-c") 'toggle-read-only)
+(global-set-key (kbd "C-x C-q") 'save-buffers-kill-terminal)
+
 (define-key emacs-lisp-mode-map (kbd "C-]") 'elisp-goto-definition-at-point)
 (global-set-key "\C-ci" 'ido-goto-symbol) ; or any key you see fit
 ; the original "\M-x" binding is execute-extended-command
@@ -542,6 +546,9 @@ instead."
 
 (global-set-key '[f5] 'compile)
 (global-set-key '[f6] 'speedbar)
+(global-set-key '[f10] 'gud-next)
+(global-set-key '[f11] 'gud-step)
+(global-set-key '[S-f11] 'gud-finish)
 
 ;; change font size
 (if (eq system-type 'gnu/linux)
