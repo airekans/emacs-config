@@ -507,6 +507,21 @@ instead."
 	(t (self-insert-command (or arg 1)))))
 
 
+;;; Find pattern in files in the project
+(defun project-rgrep ()
+  (interactive)
+  (let ((project-root (or ffip-project-root
+			  (ffip-project-root)))
+	(pat (symbol-at-point)))
+    (if (or (null project-root)
+	    (not (boundp 'ffip-file-exts))
+	    (null pat))
+	(call-interactively 'rgrep)
+      (rgrep (symbol-name pat)
+	     (mapconcat (lambda (x) (concat "*." x)) ffip-file-exts " ")
+	     project-root))))
+
+
 ;;; key bindings
 (global-set-key (kbd "C-S-o") 'other-window)
 (global-set-key (kbd "C-x C-S-o") 'other-frame)
@@ -549,6 +564,7 @@ instead."
 ;; C-M-/ was bound to dabbrev-completion
 (global-set-key (kbd "C-M-/") 'uncomment-region)
 
+(global-set-key '[f4] 'project-rgrep)
 (global-set-key '[f5] 'compile)
 (global-set-key '[f6] 'speedbar)
 (global-set-key '[f10] 'gud-next)
