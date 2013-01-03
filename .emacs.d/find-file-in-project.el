@@ -125,7 +125,11 @@ setting the `ffip-project-root' variable."
 
 (defun ffip-project-root (&optional dir)
   "Find the root of the project defined by presence of `.emacs-project'."
-  (file-name-directory (plv-find-project-file default-directory "")))
+  (let* ((d (if dir dir default-directory))
+	 (project-root (plv-find-project-file d "")))
+    (if project-root
+	(file-name-directory project-root)
+      nil)))
 
 (provide 'find-file-in-project)
 ;;; find-file-in-project.el ends here
