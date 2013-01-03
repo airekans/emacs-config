@@ -362,6 +362,7 @@
 	  (ido-enable-flex-matching
 	   (if (boundp 'ido-enable-flex-matching)
 	       ido-enable-flex-matching t))
+	  (symbol-at-pt (symbol-at-point))
 	  name-and-pos symbol-names position)
       (unless ido-mode
 	(ido-mode 1)
@@ -371,7 +372,11 @@
 	       (setq imenu--index-alist nil)
 	       (ido-goto-symbol (imenu--make-index-alist))
 	       (setq selected-symbol
-		     (ido-completing-read "Symbol? " symbol-names))
+		     (ido-completing-read "Symbol? " symbol-names
+					  nil nil
+					  (if symbol-at-pt
+					      (symbol-name symbol-at-pt)
+					    "")))
 	       (string= (car imenu--rescan-item) selected-symbol)))
       (unless (and (boundp 'mark-active) mark-active)
 	(push-mark nil t nil))
