@@ -2,5 +2,6 @@ auto-save-list/*
 *~
 *.pyc
 *.dat
+tramp
 #*#
 .emacs-project
