@@ -71,6 +71,10 @@
 ;;; Column number mode
 (column-number-mode)
 
+;;;; Convert TAB to space
+(set-default 'indent-tabs-mode nil)
+
+
 ;;; ido-mode for buffer/file switching
 (ido-mode t)
 (setq ido-enable-flex-matching t)
