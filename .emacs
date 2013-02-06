@@ -78,7 +78,9 @@
 ;;; ido-mode for buffer/file switching
 (ido-mode t)
 (setq ido-enable-flex-matching t)
-(ido-everywhere)
+(if (and (= emacs-major-version 23) (= emacs-minor-version 1))
+    (ido-everywhere 1)
+  (ido-everywhere))
 (setq ido-use-filename-at-point 'guess)
 (setq ido-max-directory-size nil) ; disable the maximum directory settings.
 ;; integrate recentf with ido
