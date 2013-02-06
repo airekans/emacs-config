@@ -268,16 +268,6 @@
 		     (with-temp-file cache-file
 		       (prin1 ad-return-value (current-buffer))))))))))
 
-;;; Customization for project-local-variables
-(require 'project-local-variables)
-(defadvice plv-find-project-file (around plv-load-file-around-ad activate)
-  (if (boundp 'plv-local-project-file-path)
-      (setq ad-return-value plv-local-project-file-path)
-    ad-do-it
-    (when ad-return-value
-      (progn (set (make-local-variable 'plv-local-project-file-path)
-		  ad-return-value)
-	     (load ad-return-value)))))
 
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
