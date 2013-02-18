@@ -82,7 +82,22 @@ Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"
 (defvar ffip-project-root nil
   "If non-nil, overrides the project root directory location.")
 
+(defun ffip-get-files ()
+  (split-string (shell-command-to-string
+                 (concat "find " (or ffip-project-root
+                                     (ffip-project-root))
+                         " -type f -regex \""
+                         ffip-regexp
+                         "\" " ffip-find-options))))
+
 (defun ffip-project-files ()
+  "Return an alist of all filenames in the project and their path.
+
+Files with duplicate filenames are suffixed with the name of the
+directory they are found in so that they are unique."
+  (ffip-project-files2 (ffip-get-files)))
+
+(defun ffip-project-files2 (files)
   "Return an alist of all filenames in the project and their path.
 
 Files with duplicate filenames are suffixed with the name of the
@@ -96,11 +111,7 @@ directory they are found in so that they are unique."
 		  (ffip-uniqueify file-cons))
 		(add-to-list 'file-alist file-cons)
 		file-cons))
-	    (split-string (shell-command-to-string (concat "find " (or ffip-project-root
-								       (ffip-project-root))
-							   " -type f -regex \""
-							   ffip-regexp
-							   "\" " ffip-find-options))))))
+	    files)))
 
 (defun ffip-uniqueify (file-cons)
   "Set the car of the argument to include the directory name plus the file name."
@@ -122,6 +133,20 @@ setting the `ffip-project-root' variable."
 		 (completing-read "Find file in project: "
 				  (mapcar 'car project-files)))))
     (find-file (cdr (assoc file project-files)))))
+
+(defun find-file-in-project-async ()
+  "The async version of find-file-in-project"
+  (if (not (file-exists-p cache-file))
+      (find-file-in-project)
+    (let (tmp-cache-buffer (find-buffer-visiting tmp-cache-file))
+      (if (not tmp-cache-buffer)
+          (let (cache-buffer (find-buffer-visiting cache-file))
+            (if (not cache-buffer)
+                (find-file-in-project)
+              (find-file-in-project cache-buffer)))
+        (if (not (get-buffer-process tmp-cache-file))
+            (message "TODO")
+          (message "TODO"))))))
 
 (defun ffip-project-root (&optional dir)
   "Find the root of the project defined by presence of `.emacs-project'."
