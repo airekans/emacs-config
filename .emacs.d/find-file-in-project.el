@@ -83,6 +83,10 @@ Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"
   "If non-nil, overrides the project root directory location.")
 
 (defun ffip-get-files ()
+  "Get files matching regex under the project root.
+
+If the project root has not been defined,
+then search the current directory."
   (split-string (shell-command-to-string
                  (concat "find " (or ffip-project-root
                                      (ffip-project-root))
