@@ -248,26 +248,8 @@
 			      (semantic-show-unmatched-syntax-mode -1)))
 
 ;;; find-file-in-project
-(require 'util)
-(if (eq system-type 'gnu/linux)
-    (progn (require 'find-file-in-project)
-	   (defadvice ffip-project-files (around ffip-files-around-ad activate)
-	     (let* ((project-root (or ffip-project-root (ffip-project-root)))
-		    (cache-file (expand-file-name ".ffip-cache" project-root)))
-	       (if (and (file-exists-p cache-file)
-			(< (get-diff-days (current-time)
-				       (get-mtime
-					(file-attributes cache-file)))
-			   1))
-		   (setq ad-return-value (car (read-from-string
-					       (shell-command-to-string
-						(concat "cat " cache-file)))))
-		 ad-do-it
-		 (when ad-return-value
-		   (ignore-errors
-		     (with-temp-file cache-file
-		       (prin1 ad-return-value (current-buffer))))))))))
-
+(when (eq system-type 'gnu/linux)
+  (require 'find-file-in-project))
 
 ;;; Ibus mode
 ;;; before enable this mode, ensure python-xlib has been installed
