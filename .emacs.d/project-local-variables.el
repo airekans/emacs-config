@@ -55,6 +55,17 @@
          ((file-exists-p f) f)
          (t (plv-find-project-file parent mode-name)))))
 
+(defvar plv-local-project-file-path nil)
+(defadvice plv-find-project-file (around plv-load-file-around-ad activate)
+  (if (local-variable-p 'plv-local-project-file-path)
+      (setq ad-return-value plv-local-project-file-path)
+    ad-do-it
+    (when ad-return-value
+      (progn (set (make-local-variable 'plv-local-project-file-path)
+  	  ad-return-value)
+	     (save-excursion
+	       (load ad-return-value))))))
+
 ;;; When you want to load the project file before loading this module,
 ;;; swap the hack-local-variables and project-local-variables in the
 ;;; following line.
@@ -65,9 +76,7 @@
                       full-name))
          (pfile (plv-find-project-file default-directory (concat "-" mode-name)))
          (gfile (plv-find-project-file default-directory "")))
-    (save-excursion
-      (when gfile (load gfile))
-      (when pfile (load pfile)))))
+    t))
 
 (add-to-list 'auto-mode-alist '("^\.emacs-project" . emacs-lisp-mode))
 
