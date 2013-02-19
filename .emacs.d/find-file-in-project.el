@@ -65,6 +65,7 @@
 ;;; Code:
 
 (require 'project-local-variables)
+(require 'util)
 
 (defvar ffip-regexp
   (concat ".*\\.\\("
@@ -82,17 +83,19 @@ Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"
 (defvar ffip-project-root nil
   "If non-nil, overrides the project root directory location.")
 
+(defun ffip-get-find-command ()
+  (concat "find " (or ffip-project-root
+		      (ffip-project-root))
+	  " -type f -regex \""
+	  ffip-regexp
+	  "\" " ffip-find-options))
+  
 (defun ffip-get-files ()
   "Get files matching regex under the project root.
 
 If the project root has not been defined,
 then search the current directory."
-  (split-string (shell-command-to-string
-                 (concat "find " (or ffip-project-root
-                                     (ffip-project-root))
-                         " -type f -regex \""
-                         ffip-regexp
-                         "\" " ffip-find-options))))
+  (split-string (shell-command-to-string (ffip-get-find-command))))
 
 (defun ffip-project-files ()
   "Return an alist of all filenames in the project and their path.
@@ -117,6 +120,57 @@ directory they are found in so that they are unique."
 		file-cons))
 	    files)))
 
+(defun ffip-project-files-async ()
+  ;; variable and function definitions
+  (let* ((project-root (or ffip-project-root (ffip-project-root)))
+	 (cache-file (expand-file-name ".ffip-cache" project-root))
+	 (read-cache-file (lambda ()
+			    (car (read-from-string
+				  (shell-command-to-string
+				   (concat "cat " cache-file))))))
+	 (save-result-to-cache-file
+	  (lambda (result)
+	    (ignore-errors
+	      (with-temp-file cache-file
+		(prin1 result (current-buffer))))
+	    result))
+	 (save-cache-buffer-and-read
+	  (lambda (cache-buffer)
+	    (if (not (get-buffer-process cache-buffer))
+		; save the output from the find process to
+		; the cache file, get the content from the buffer,
+		; and close the file.
+		(let ((result (with-current-buffer cache-buffer
+				(end-of-buffer)
+				(kill-whole-line -2)
+				(set-buffer-modified-p nil)
+				(ffip-project-files2
+				 (split-string
+				  (buffer-string))))))
+		  (kill-buffer cache-buffer)
+		  (funcall save-result-to-cache-file result))
+	      ; do nothing with cache-buffer and
+	      ; get the content from file.
+	      (funcall read-cache-file)))))
+    (if (not (file-exists-p cache-file))
+	(funcall save-result-to-cache-file (ffip-project-files))
+      (let ((cache-buffer (find-buffer-visiting cache-file)))
+	(if (not cache-buffer)
+	    (if (< (get-diff-days (current-time)
+				  (get-mtime
+				   (file-attributes cache-file)))
+		   1)
+		(funcall read-cache-file)
+	      ; fork a new find process and output to cache-buffer
+	      (setq cache-buffer (create-file-buffer cache-file))
+	      (with-current-buffer cache-buffer
+		(set-visited-file-name cache-file t))
+	      (start-process-shell-command "ffip-find" cache-buffer
+					   (ffip-get-find-command))
+	      (funcall save-cache-buffer-and-read cache-buffer))
+	  (funcall save-cache-buffer-and-read cache-buffer))))))
+
+
 (defun ffip-uniqueify (file-cons)
   "Set the car of the argument to include the directory name plus the file name."
   (setcar file-cons
@@ -137,20 +191,6 @@ setting the `ffip-project-root' variable."
 		 (completing-read "Find file in project: "
 				  (mapcar 'car project-files)))))
     (find-file (cdr (assoc file project-files)))))
-
-(defun find-file-in-project-async ()
-  "The async version of find-file-in-project"
-  (if (not (file-exists-p cache-file))
-      (find-file-in-project)
-    (let (tmp-cache-buffer (find-buffer-visiting tmp-cache-file))
-      (if (not tmp-cache-buffer)
-          (let (cache-buffer (find-buffer-visiting cache-file))
-            (if (not cache-buffer)
-                (find-file-in-project)
-              (find-file-in-project cache-buffer)))
-        (if (not (get-buffer-process tmp-cache-file))
-            (message "TODO")
-          (message "TODO"))))))
 
 (defun ffip-project-root (&optional dir)
   "Find the root of the project defined by presence of `.emacs-project'."
