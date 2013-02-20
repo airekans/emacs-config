@@ -25,7 +25,10 @@
 ;;  M-& : Async shell command, output to another buffer.
 ;;  M-| : run the shell command and pass the region as the stdin to the command.
 ;;  C-x <TAB> : indent-rigidly, which shift the region right with
-;;              given prefix argument. 
+;;              given prefix argument.
+
+;;; key bindings for ido
+;;  M-f : find file in current directory, then continue ido.
 
 ;;; key bindings for elisp
 ;;  C-x C-e : evaluate the last elisp expression and print to minibuf
