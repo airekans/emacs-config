@@ -89,6 +89,8 @@
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-saved-items 300)
+(define-key ido-common-completion-map
+  (kbd "C-S-f") 'ido-restrict-to-matches)
 
 (defun ido-choose-from-recentf ()
   "Use ido to select a recently opened file from the `recentf-list'"
