@@ -40,6 +40,8 @@
 ;;  occur -> find the lines matching the regex
 ;;  find-dired -> use "find" cmd to find files and show the result in dired mode
 ;;  apropos -> find the matching items by using regex.
+;;  edebug-defun -> debug a defun with edebug on entering it. 
+;;                  To stop edebug from debugging it, just re-eval the defun.
 
 ;;; Add the .emacs.d to the load-path
 (add-to-list 'load-path '"~/.emacs.d")
