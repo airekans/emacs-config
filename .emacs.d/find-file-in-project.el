@@ -67,12 +67,15 @@
 (require 'project-local-variables)
 (require 'util)
 
-(defvar ffip-regexp
+(defvar ffip-file-exts
+  '("rb" "js" "css" "yml" "yaml" "rhtml" "erb" "html" "el")
+"file extentions to look for when using find-file-in-project")
+
+(defun ffip-regexp ()
+  "Regexp of things to look for when using find-file-in-project."
   (concat ".*\\.\\("
-	  (mapconcat (lambda (x) x)
-		     '("rb" "js" "css" "yml" "yaml" "rhtml" "erb" "html" "el") "\\|")
-	  "\\)")
-  "Regexp of things to look for when using find-file-in-project.")
+	  (mapconcat (lambda (x) x) ffip-file-exts "\\|")
+	  "\\)"))
 
 (defvar ffip-find-options
   ""
@@ -87,7 +90,7 @@ Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"
   (concat "find " (or ffip-project-root
 		      (ffip-project-root))
 	  " -type f -regex \""
-	  ffip-regexp
+	  (ffip-regexp)
 	  "\" " ffip-find-options))
   
 (defun ffip-get-files ()
