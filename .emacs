@@ -507,6 +507,7 @@ instead."
 	    (not (boundp 'ffip-file-exts))
 	    (null pat))
 	(call-interactively 'rgrep)
+      (grep-compute-defaults)
       (rgrep (symbol-name pat)
 	     (mapconcat (lambda (x) (concat "*." x)) ffip-file-exts " ")
 	     project-root))))
