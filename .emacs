@@ -69,7 +69,7 @@
 ;;; Set default font
 ;; To download "Source Code Pro", you can goto http://blogs.adobe.com/typblography/2012/09/source-code-pro.html
 ;; Then you put all .ttf files under ~/.fonts and run the following commands in ~/.fonts:
-;(set-face-attribute 'default nil :font "Source Code Pro" :height 140)
+;(if window-system (set-face-attribute 'default nil :font "Source Code Pro" :height 140))
 
 ;;; Linum mode
 (global-linum-mode 1)
